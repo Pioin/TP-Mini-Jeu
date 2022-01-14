@@ -1,5 +1,4 @@
 public class Characters {
-    String name;
     int health;
     static boolean isAlive = false;
     
