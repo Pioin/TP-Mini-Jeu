@@ -1,5 +1,5 @@
 public class Characters {
-    int health;
+    int health = 100;
     static boolean isAlive = false;
     
     public static boolean isItAlive() {
@@ -7,6 +7,7 @@ public class Characters {
     }
     
     public static void attack(Characters target, int maxAttack) {
-        target.health = target.health - Dices.throwDice(maxAttack);
+        Dices attackDice = new Dices();
+        target.health = target.health - attackDice.throwDice();
     }
 }

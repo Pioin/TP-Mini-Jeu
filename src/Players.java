@@ -19,4 +19,18 @@ public class Players extends Characters {
     {
         return gender;
     }
+    public void damagePlayer(int damage)
+    {
+        this.health -= damage;
+    }
+    public void healPlayer(int heal)
+    {
+        this.health += heal;
+    }
+    public int getHealth()
+    {
+        return this.health;
+    }
+
+
 }
