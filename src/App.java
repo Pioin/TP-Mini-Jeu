@@ -17,5 +17,6 @@ public class App {
         System.out.println("Ton aventure commence, bon courage aventurier !");
         myDungeon.manageDungeon(myPlayer);
         System.out.println("Fin du jeu");
+        in.close();
     }
 }
