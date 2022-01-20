@@ -15,6 +15,6 @@ public class App {
         myDungeon.setMaxFloors(in.next());
         System.out.println("Très bien, ton aventure se fera sur " + myDungeon.getMaxFloors() + " étages");
         System.out.println("Ton aventure commence, bon courage aventurier !");
-
+        myDungeon.manageDungeon(myPlayer);
     }
 }
