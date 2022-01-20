@@ -29,17 +29,18 @@ public class Dungeons {
         Dices myDice = new Dices();
         myDice.setDiceMax(6);
         int floorDice;
-        while(adventurer.isAlive || this.currentFloor < this.maxFloors)
+        while(adventurer.isAlive == true && this.currentFloor <= this.maxFloors)
         {
             floorDice = myDice.throwDice();
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.print("Vous arrivez à l'étage n° ." + this.currentFloor + "\r\n");
+            System.out.println("Vous possédez " + adventurer.getHealth() + " points de vie.");
             while(in.nextLine() == null);
             if(floorDice > 1 && floorDice < 6) // NORMAL MONSTER
             {
                 System.out.println("Au milieu de la pièce se trouve une bète elle vous a déja repéré impossible de s'échapper");
                 NormalMonsters myNormalMonster = new NormalMonsters();
-                while(myNormalMonster.getHealth() > 0)
+                while(myNormalMonster.getIsAlive() == true && adventurer.getIsAlive() == true)
                 {
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("Vous tentez d'attaquer le monstre");
@@ -96,20 +97,26 @@ public class Dungeons {
                     {
                         adventurer.setIsAlive(false);
                         System.out.println(adventurer.getName() + " a péri, c'est la fin de l'aventure.");
-                        break;
                     }
-                }
-                if (adventurer.getHealth() > 0)
-                {
-                    System.out.println("Vous avez éliminé le monstre !");
-                    adventurer.slayAMonster();
+                    if(myNormalMonster.getHealth() == 0)
+                    {
+                        myNormalMonster.setIsAlive(false);
+                        System.out.println("Vous avez éliminé le monstre !");
+                        adventurer.slayAMonster();
+                        if(myDice.throwDice() == 6)
+                        {
+                            System.out.println("Le monstre laisse tomber une orbe de vie, vous la consommez pour récupérer quelques points de vie");
+                            adventurer.healCharacter(5);
+                            System.out.println("Vous possédez maintenant " + adventurer.getHealth() + " points de vie.");
+                        }
+                    }
                 }
             }
             else if(floorDice == 6) // ELITE MONSTER
             {
                 System.out.println("Au milieu de la pièce se trouve une bète plus grande que la moyenne elle vous a déja repéré impossible de s'échapper");
                 EliteMonsters myEliteMonster = new EliteMonsters();
-                while(myEliteMonster.getHealth() > 0)
+                while(myEliteMonster.getIsAlive() == true && adventurer.getIsAlive() == true)
                 {
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("Vous tentez d'attaquer le monstre gigantesque");
@@ -128,7 +135,7 @@ public class Dungeons {
                     {
                         System.out.println("Malheureusement votre lancer n'est pas assez bon !");
                     }
-                    if(myEliteMonster.getHealth() > 0)
+                    if(myEliteMonster.getIsAlive() == true)
                     {
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         System.out.println("Le monstre  gigantesque tente de vous attaquer");
@@ -165,7 +172,7 @@ public class Dungeons {
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         System.out.println("Le monstre gigantesque prépare une attaque magique !");
                         System.out.println("Le monstre gigantesque lance un : " + magicAttack + " !");
-                        if(magicAttack < 6)
+                        if(magicAttack < 6 && adventurer.getIsAlive() == true)
                         {
                             System.out.println("Le sort semble être une réussite, préparez vous a l'impact !");
                             if(adventurer.myPlayerDice.throwDice() <= 2)
@@ -193,24 +200,30 @@ public class Dungeons {
                         {
                             adventurer.setIsAlive(false);
                             System.out.println(adventurer.getName() + " a péri, c'est la fin de l'aventure.");
-                            break;
+                        }
+                        if(myEliteMonster.getHealth() == 0)
+                        {
+                            myEliteMonster.setIsAlive(false);
+                            System.out.println("Vous avez éliminé le monstre !");
+                            adventurer.slayAMonster();
+                            if(myDice.throwDice() == 6)
+                            {
+                                System.out.println("Le monstre laisse tomber une orbe de vie, vous la consommez pour récupérer quelques points de vie");
+                                adventurer.healCharacter(5);
+                            }
                         }
                     }
                 }
-                if (adventurer.getHealth() > 0)
-                {
-                    System.out.println("Vous avez éliminé le monstre élite!");
-                    adventurer.slayAMonster();
-                }
             }
-            else if(floorDice == 1)
+            else 
             {
-                System.out.println("Une pièce vide, vous marchez vers le prochain étage.");
+                System.out.println("Vous entrez dans une pièce vide, seule de la moisissure sur les murs est visible, vous avancez vers le prochain étage");
             }
             this.currentFloor += 1;
         }
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("L'aventure est finie pour vous, vous avez bien combattu.");
-        if(adventurer.getHealth() == 0)
+        if(adventurer.isAlive == false)
         {
             System.out.println(adventurer.getName() + " est mort à l'étage n° " + this.currentFloor);
         }

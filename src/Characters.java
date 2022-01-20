@@ -1,8 +1,14 @@
 public class Characters{
     int health = 100;
-    boolean isAlive = false;
-    public boolean isItAlive() {
+    boolean isAlive = true;
+
+    public boolean getIsAlive() 
+    {
         return isAlive;
+    }
+    public void setIsAlive(boolean isAlive)
+    {
+        this.isAlive = isAlive;
     }
     public void damageCharacter(int damage)
     {
@@ -17,7 +23,14 @@ public class Characters{
     }
     public void healCharacter(int heal)
     {
-        this.health += heal;
+        if((this.health + heal) > 100)
+        {
+            this.health = 100;
+        }
+        else
+        {
+            this.health = this.health + heal;
+        }
     }
     public int getHealth()
     {

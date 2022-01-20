@@ -17,10 +17,6 @@ public class Players extends Characters {
     {
         this.gender = gender;
     }
-    public void setIsAlive(boolean isAlive)
-    {
-        this.isAlive = isAlive;
-    }
     public String getName()
     {
         return name;
@@ -28,10 +24,6 @@ public class Players extends Characters {
     public String getGender()
     {
         return gender;
-    }
-    public boolean getIsAlive()
-    {
-        return isAlive;
     }
     public void slayAMonster()
     {
