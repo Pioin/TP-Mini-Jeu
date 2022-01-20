@@ -1,8 +1,15 @@
+import java.lang.management.MemoryPoolMXBean;
+
 public class Players extends Characters {
     private String gender;
     private String name;
     private int monsterSlain;
-    private String inventory[];
+    Dices myPlayerDice = new Dices();
+
+    public Players()   
+    {
+        myPlayerDice.setDiceMax(6);
+    }
     public void setName(String name)
     {
         this.name = name;
@@ -10,6 +17,10 @@ public class Players extends Characters {
     public void setGender(String gender)
     {
         this.gender = gender;
+    }
+    public void setIsAlive(boolean isAlive)
+    {
+        this.isAlive = isAlive;
     }
     public String getName()
     {
@@ -19,18 +30,12 @@ public class Players extends Characters {
     {
         return gender;
     }
-    public void damagePlayer(int damage)
+    public boolean getIsAlive()
     {
-        this.health -= damage;
+        return isAlive;
     }
-    public void healPlayer(int heal)
+    public void slayAMonster()
     {
-        this.health += heal;
+        this.monsterSlain += 1;
     }
-    public int getHealth()
-    {
-        return this.health;
-    }
-
-
 }

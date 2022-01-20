@@ -1,13 +1,23 @@
-public class Characters {
+public class Characters{
     int health = 100;
-    static boolean isAlive = false;
-    
-    public static boolean isItAlive() {
+    boolean isAlive = false;
+    public boolean isItAlive() {
         return isAlive;
     }
-    
-    public static void attack(Characters target, int maxAttack) {
-        Dices attackDice = new Dices();
-        target.health = target.health - attackDice.throwDice();
+    public void damageCharacter(int damage)
+    {
+        this.health -= damage;
+    }
+    public void healCharacter(int heal)
+    {
+        this.health += heal;
+    }
+    public int getHealth()
+    {
+        return this.health;
+    }
+    public void attack(Characters target, int attackValue) 
+    {
+        target.damageCharacter(attackValue);  
     }
 }

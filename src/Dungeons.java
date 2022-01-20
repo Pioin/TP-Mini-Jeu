@@ -1,7 +1,6 @@
-import java.util.Random;
+
 public class Dungeons {
-    Random rand = new Random();
-    private int actualFloor = 1;
+    private int currentFloor = 1;
     private int maxFloors;
     public void setMaxFloors(String difficulte)
     {        
@@ -24,29 +23,132 @@ public class Dungeons {
     {
         return maxFloors;
     } 
-    public void generateFloor(Players adventurer)
+    public void manageDungeon(Players adventurer)
     {
         Dices myDice = new Dices();
         myDice.setDiceMax(6);
         int floorDice;
-        System.out.print("Vous arrivez à l'étage n° ." + this.actualFloor + "\r\n");
+        System.out.print("Vous arrivez à l'étage n° ." + this.currentFloor + "\r\n");
         floorDice = myDice.throwDice();
-        if(floorDice > 1 && floorDice < 6)
+        if(floorDice > 1 && floorDice < 6) // NORMAL MONSTER
         {
             System.out.println("Au milieu de la pièce se trouve une bète elle vous a déja repéré impossible de s'échapper");
             NormalMonsters myNormalMonster = new NormalMonsters();
-            while(adventurer.getHealth() > 0 || myNormalMonster.getHealth() > 0)
+            while(adventurer.isAlive || myNormalMonster.getHealth() > 0)
             {
+                System.out.println("Lancer des dés : ");
+                int adventurerThrow = adventurer.myPlayerDice.throwDice();
+                System.out.println("L'aventurier lance un : " + adventurerThrow + " !");
+                int normalMonsterThrow = myNormalMonster.myNormalMonsterDice.throwDice();
+                System.out.println("Le monstre lance un : " + normalMonsterThrow + " !");
+                if(adventurerThrow >= normalMonsterThrow)
+                {
+                    System.out.println("Vous frappez le monstre il subit " + (adventurerThrow - normalMonsterThrow) + "dégats !");
+                    adventurer.attack(myNormalMonster, adventurerThrow - normalMonsterThrow);
+                    System.out.println("Le monstre possède maintenant " + myNormalMonster.getHealth() + " points de vie.");
+                }
+                else
+                {
+                    System.out.println("Malheureusement votre lancer n'est pas assez bon !");
+                    System.out.println("Le monstre vous attaque");
+                }
 
+                if(adventurerThrow >= normalMonsterThrow)
+                {
+                    System.out.println("Le monstre vous frappe, vous subissez " + (normalMonsterThrow - adventurerThrow) + "dégats !");
+
+                    if(adventurer.myPlayerDice.throwDice() <= 2)
+                    {
+                        System.out.println("Malheureusement votre lancer n'est pas assez bon !");
+                        System.out.println(adventurer.getName() + " tente d'utiliser son bouclier !");
+                        System.out.println("C'est une réussite !");
+                        System.out.println("L'attaque du monstre est évitée");
+                    }
+                    else
+                    {
+                        System.out.println("Malheureusement votre lancer n'est pas assez bon !");
+                        System.out.println(adventurer.getName() + " tente d'utiliser son bouclier !");
+                        System.out.println("C'est un échec !");
+                        System.out.println("Le monstre vous attaque");
+                        myNormalMonster.attack(adventurer, normalMonsterThrow - adventurerThrow);
+                    }
+                    System.out.println("Vous possédez maintenant " + adventurer.getHealth() + " points de vie.");
+                }
+                if(adventurer.getHealth() == 0)
+                {
+                    adventurer.setIsAlive(false);
+                    System.out.println(adventurer.getName() + " a péri, c'est la fin de l'aventure.");
+                }
             }
         }
-        else if(floorDice == 6)
+        else if(floorDice == 6) // ELITE MONSTER
         {
             System.out.println("Au milieu de la pièce se trouve une bète plus grande que la moyenne elle vous a déja repéré impossible de s'échapper");
             EliteMonsters myEliteMonster = new EliteMonsters();
             while(adventurer.getHealth() > 0 || myEliteMonster.getHealth() > 0)
             {
-                
+                System.out.println("Lancer des dés : ");
+                int adventurerThrow = adventurer.myPlayerDice.throwDice();
+                System.out.println("L'aventurier lance un : " + adventurerThrow + " !");
+                int eliteMonsterThrow = myEliteMonster.myEliteMonsterDice.throwDice();
+                System.out.println("Le monstre lance un : " + eliteMonsterThrow + " !");
+                int magicAttack = myEliteMonster.myMagicSpellDice.throwDice();
+                if(adventurerThrow >= eliteMonsterThrow)
+                {
+                    System.out.println("Vous frappez le monstre il subit " + (adventurerThrow - eliteMonsterThrow) + "dégats !");
+                    adventurer.attack(myEliteMonster, adventurerThrow - eliteMonsterThrow);
+                    System.out.println("Le monstre possède maintenant " + myEliteMonster.getHealth() + " points de vie.");
+                }
+                else
+                {
+                    System.out.println("Malheureusement votre lancer n'est pas assez bon !");
+                    System.out.println("Le monstre vous attaque");
+                }
+
+                if(adventurerThrow >= eliteMonsterThrow)
+                {
+                    System.out.println("Le monstre vous frappe, vous subissez " + (eliteMonsterThrow - adventurerThrow) + "dégats !");
+
+                    if(adventurer.myPlayerDice.throwDice() <= 2)
+                    {
+                        System.out.println("Malheureusement votre lancer n'est pas assez bon !");
+                        System.out.println(adventurer.getName() + " tente d'utiliser son bouclier !");
+                        System.out.println("C'est une réussite !");
+                        System.out.println("L'attaque du monstre est évitée");
+                    }
+                    else
+                    {
+                        System.out.println("Malheureusement votre lancer n'est pas assez bon !");
+                        System.out.println(adventurer.getName() + " tente d'utiliser son bouclier !");
+                        System.out.println("C'est un échec !");
+                        System.out.println("Le monstre vous attaque");
+                        myEliteMonster.attack(adventurer, eliteMonsterThrow - adventurerThrow);
+                    }
+                    System.out.println("Vous possédez maintenant " + adventurer.getHealth() + " points de vie.");
+                }
+                System.out.println("Le monstre prépare une attaque magique !");
+                if(magicAttack < 6)
+                {
+                    System.out.println("Le sort semble être une réussite, préparez vous a l'impact !");
+                    if(adventurer.myPlayerDice.throwDice() <= 2)
+                    {
+                        System.out.println(adventurer.getName() + " tente d'utiliser son bouclier pour se défendre du sort !");
+                        System.out.println("C'est une réussite !");
+                        System.out.println("L'attaque du monstre est évitée");
+                    }
+                    else
+                    {
+                        System.out.println(adventurer.getName() + " tente d'utiliser son bouclier pour se défendre du sort !");
+                        System.out.println("C'est un échec !");
+                        System.out.println("Le sort fonce sur vous !");
+                        myEliteMonster.attack(adventurer, (magicAttack * 5));
+                    }
+                }
+                if(adventurer.getHealth() == 0)
+                {
+                    adventurer.setIsAlive(false);
+                    System.out.println(adventurer.getName() + " a péri, c'est la fin de l'aventure.");
+                }
             }
         }
         else if(floorDice == 1)
