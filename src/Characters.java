@@ -6,7 +6,7 @@ public class Characters{
     }
     public void damageCharacter(int damage)
     {
-        this.health -= damage;
+        this.health = this.health - damage;
     }
     public void healCharacter(int heal)
     {

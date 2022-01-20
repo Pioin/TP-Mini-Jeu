@@ -2,7 +2,7 @@
 public class Players extends Characters {
     private String gender;
     private String name;
-    private int monsterSlain;
+    private int monstersSlain;
     Dices myPlayerDice = new Dices();
 
     public Players()   
@@ -35,6 +35,10 @@ public class Players extends Characters {
     }
     public void slayAMonster()
     {
-        this.monsterSlain += 1;
+        this.monstersSlain += 1;
+    }
+    public int getMonstersSlain()
+    {
+        return monstersSlain;
     }
 }
