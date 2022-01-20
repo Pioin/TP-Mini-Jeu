@@ -1,4 +1,3 @@
-import java.lang.management.MemoryPoolMXBean;
 
 public class Players extends Characters {
     private String gender;
