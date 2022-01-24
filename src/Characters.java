@@ -1,5 +1,5 @@
 public class Characters{
-    int health = 100;
+    int health;
     boolean isAlive = true;
 
     public boolean getIsAlive() 
@@ -35,6 +35,10 @@ public class Characters{
     public int getHealth()
     {
         return this.health;
+    }
+    public void setHealth(int health)
+    {
+        this.health = health;
     }
     public void attack(Characters target, int attackValue) 
     {

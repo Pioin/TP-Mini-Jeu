@@ -7,10 +7,4 @@ public class NormalMonsters extends Characters
         myNormalMonsterDice.setDiceMax(6);
         this.health = myNormalMonsterDice.throwDice();
     }
-
-    public int getHealth()
-    {
-        return this.health;
-    }
-
 }

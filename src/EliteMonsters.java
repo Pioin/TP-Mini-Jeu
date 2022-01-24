@@ -5,16 +5,6 @@ public class EliteMonsters extends Characters {
     {
         myEliteMonsterDice.setDiceMax(6);
         myMagicSpellDice.setDiceMax(6);
-        this.health = myEliteMonsterDice.throwDice();
-    }
-
-    public int getHealth()
-    {
-        return this.health;
-    }
-    
-    public static void throwMagicSpell()
-    {
-        
+        this.setHealth(myEliteMonsterDice.throwDice() + myEliteMonsterDice.throwDice());
     }
 }

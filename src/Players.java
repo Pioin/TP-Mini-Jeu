@@ -8,6 +8,7 @@ public class Players extends Characters {
     public Players()   
     {
         myPlayerDice.setDiceMax(6);
+        this.setHealth(100);
     }
     public void setName(String name)
     {
