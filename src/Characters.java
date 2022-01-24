@@ -1,6 +1,8 @@
 public class Characters{
+
     private int health;
     private boolean isAlive = true;
+
 
     public boolean getIsAlive() // Getter retournant le booléen isAlive notifiant si un personnage est mort ou vivant
     {
