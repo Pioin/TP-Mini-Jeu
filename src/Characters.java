@@ -1,43 +1,32 @@
 public class Characters{
-    int health = 100;
-    boolean isAlive = true;
+    private int health;
+    private boolean isAlive = true;
 
-    public boolean getIsAlive() 
+    public boolean getIsAlive() // Getter retournant le booléen isAlive notifiant si un personnage est mort ou vivant
     {
         return isAlive;
     }
-    public void setIsAlive(boolean isAlive)
+    public void setIsAlive(boolean isAlive) // Setter du booléen isAlive notifiant si un personnage est mort ou vivant
     {
         this.isAlive = isAlive;
     }
-    public void damageCharacter(int damage)
-    {
-        if((this.health - damage) < 0)
-        {
-            this.health = 0;
-        }
-        else
-        {
-            this.health = this.health - damage;
-        }
-    }
-    public void healCharacter(int heal)
-    {
-        if((this.health + heal) > 100)
-        {
-            this.health = 100;
-        }
-        else
-        {
-            this.health = this.health + heal;
-        }
-    }
-    public int getHealth()
+    public int getHealth() // Getter de la variable health 
     {
         return this.health;
     }
-    public void attack(Characters target, int attackValue) 
+    public void setHealth(int health) // Setter de la variable Health
     {
-        target.damageCharacter(attackValue);
+        this.health = health;
+    }
+    public void attack(Characters target, int attackValue) // Méthode permettant a un personnage d'en attaquer un autre
+    {
+        if((target.health - attackValue) < 0)
+        {
+            target.health = 0;
+        }
+        else
+        {
+            target.health = target.health - attackValue;
+        }
     }
 }

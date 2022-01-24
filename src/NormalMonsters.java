@@ -1,16 +1,14 @@
 public class NormalMonsters extends Characters
 {
-    Dices myNormalMonsterDice = new Dices(); 
+    Dices myNormalMonsterDice = new Dices(6); 
 
     public NormalMonsters()
     {
-        myNormalMonsterDice.setDiceMax(6);
-        this.health = myNormalMonsterDice.throwDice();
+        this.setHealth(myNormalMonsterDice.throwDice());
     }
 
-    public int getHealth()
+    public int throwNormalMonsterDice()
     {
-        return this.health;
+        return this.myNormalMonsterDice.throwDice();
     }
-
 }

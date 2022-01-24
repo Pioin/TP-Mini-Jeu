@@ -26,10 +26,9 @@ public class Dungeons {
     } 
     public void manageDungeon(Players adventurer)
     {
-        Dices myDice = new Dices();
-        myDice.setDiceMax(6);
+        Dices myDice = new Dices(6);
         int floorDice;
-        while(adventurer.isAlive == true && this.currentFloor <= this.maxFloors)
+        while(adventurer.getIsAlive() == true && this.currentFloor <= this.maxFloors)
         {
             floorDice = myDice.throwDice();
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -109,6 +108,10 @@ public class Dungeons {
                             adventurer.healCharacter(5);
                             System.out.println("Vous possédez maintenant " + adventurer.getHealth() + " points de vie.");
                         }
+                        if(myDice.throwDice() >= 5)
+                        {
+                            adventurer.addItem();
+                        }
                     }
                 }
             }
@@ -123,7 +126,7 @@ public class Dungeons {
                     System.out.println("Lancer des dés : ");
                     int adventurerThrow = adventurer.myPlayerDice.throwDice();
                     System.out.println("L'aventurier lance un : " + adventurerThrow + " !");
-                    int eliteMonsterThrow = myEliteMonster.myEliteMonsterDice.throwDice();
+                    int eliteMonsterThrow = myEliteMonster.throwEliteMonsterDice();
                     System.out.println("Le monstre gigantesque lance un : " + eliteMonsterThrow + " !");
                     if(adventurerThrow >= eliteMonsterThrow)
                     {
@@ -142,9 +145,9 @@ public class Dungeons {
                         System.out.println("Lancer des dés : ");
                         adventurerThrow = adventurer.myPlayerDice.throwDice();
                         System.out.println("L'aventurier lance un : " + adventurerThrow + " !");
-                        eliteMonsterThrow = myEliteMonster.myEliteMonsterDice.throwDice();
+                        eliteMonsterThrow = myEliteMonster.throwEliteMonsterDice();
                         System.out.println("Le monstre gigantesque lance un : " + eliteMonsterThrow + " !");
-                        int magicAttack = myEliteMonster.myMagicSpellDice.throwDice();
+                        int magicAttack = myEliteMonster.throwMagicSpellDicee();
                         if(eliteMonsterThrow > adventurerThrow)
                         {
                             if(adventurer.myPlayerDice.throwDice() <= 2)
@@ -211,6 +214,10 @@ public class Dungeons {
                                 System.out.println("Le monstre laisse tomber une orbe de vie, vous la consommez pour récupérer quelques points de vie");
                                 adventurer.healCharacter(5);
                             }
+                            if(myDice.throwDice() >= 5)
+                            {
+                                adventurer.addItem();
+                            }
                         }
                     }
                 }
@@ -223,9 +230,13 @@ public class Dungeons {
         }
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("L'aventure est finie pour vous, vous avez bien combattu.");
-        if(adventurer.isAlive == false)
+        if(adventurer.getIsAlive() == false)
         {
             System.out.println(adventurer.getName() + " est mort à l'étage n° " + this.currentFloor);
+        }
+        if(adventurer.ismyInventoryEmpty() == false)
+        {
+            adventurer.listItems();
         }
         System.out.println(adventurer.getName() + " a élliminé " + adventurer.getMonstersSlain() + " monstres.");
     }

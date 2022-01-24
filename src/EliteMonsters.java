@@ -1,20 +1,17 @@
 public class EliteMonsters extends Characters {
-    Dices myEliteMonsterDice = new Dices(); 
-    Dices myMagicSpellDice = new Dices();
-    public EliteMonsters()
-    {
-        myEliteMonsterDice.setDiceMax(6);
-        myMagicSpellDice.setDiceMax(6);
-        this.health = myEliteMonsterDice.throwDice();
-    }
+    private Dices myEliteMonsterDice = new Dices(6); 
+    private Dices myMagicSpellDice = new Dices(6);
 
-    public int getHealth()
+    public EliteMonsters() // 
     {
-        return this.health;
+        this.setHealth((myEliteMonsterDice.throwDice() + myEliteMonsterDice.throwDice()));
     }
-    
-    public static void throwMagicSpell()
+    public int throwEliteMonsterDice()
     {
-        
+        return this.myEliteMonsterDice.throwDice();
+    }
+    public int throwMagicSpellDicee()
+    {
+        return this.myMagicSpellDice.throwDice();
     }
 }
