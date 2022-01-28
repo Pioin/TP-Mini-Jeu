@@ -46,7 +46,7 @@ public class Dungeons {
                     System.out.println("Lancer des dés : ");
                     int adventurerThrow = adventurer.myPlayerDice.throwDice();
                     System.out.println("L'aventurier lance un : " + adventurerThrow + " !");
-                    int normalMonsterThrow = myNormalMonster.myNormalMonsterDice.throwDice();
+                    int normalMonsterThrow = myNormalMonster.throwNormalMonsterDice();
                     System.out.println("Le monstre lance un : " + normalMonsterThrow + " !");
                     if(adventurerThrow >= normalMonsterThrow)
                     {
@@ -64,7 +64,7 @@ public class Dungeons {
                         System.out.println("Lancer des dés : ");
                         adventurerThrow = adventurer.myPlayerDice.throwDice();
                         System.out.println("L'aventurier lance un : " + adventurerThrow + " !");
-                        normalMonsterThrow = myNormalMonster.myNormalMonsterDice.throwDice();
+                        normalMonsterThrow = myNormalMonster.throwNormalMonsterDice();
                         System.out.println("Le monstre lance un : " + normalMonsterThrow + " !");
                         if(normalMonsterThrow > adventurerThrow)
                         {

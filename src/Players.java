@@ -46,7 +46,7 @@ public class Players extends Characters {
             this.setHealth(this.getHealth() + heal);
         }
     }
-    public void addItem()
+    public void addItem() // Méthode permettant de générer puis d'ajouter un objet a un personnage
     {
         String itemDrop = Items.generateItemName();
         System.out.println("Le monstre laisse tomber quelque chose !");
@@ -54,7 +54,7 @@ public class Players extends Characters {
         System.out.println("Vous mettez ce bijoux dans votre sac a objets.");
         this.myInventory.add(itemDrop);
     }
-    public void listItems()
+    public void listItems() // Méthode permettant de lister les objets dans l'inventaire d'un joueur
     {
         System.out.println("Voila la liste des objets obtenus durant votre aventure");
         for(String item:myInventory)
@@ -62,7 +62,7 @@ public class Players extends Characters {
             System.out.println("- " + item);
         }
     }
-    public boolean ismyInventoryEmpty()
+    public boolean ismyInventoryEmpty() // Méthode renvoyant un booléen "true" so l'inventaire du joueur est vide
     {
         return this.myInventory.isEmpty();
     }
