@@ -1,12 +1,10 @@
-import java.util.Random;
 public class Items {
-    Dices myItemDice = new Dices(7);
-    public static String generateItemName()
+    private Dices myItemDice = new Dices(10);
+
+    public String generateItemName()
     {
         String itemname = "Zbibou";
-        Random rand = new Random();
-        int int_random = rand.nextInt(13);
-        switch (int_random) {
+        switch (myItemDice.throwDice()) {
             case 1:  
                 itemname = "Epée Crocodur";  
                 return itemname;
@@ -27,6 +25,18 @@ public class Items {
                 return itemname;
             case 7:
                 itemname = "Trousse vide"; 
+                return itemname;
+            case 8:
+                itemname = "Sac de poils";
+                return itemname;
+            case 9:
+                itemname = "Lave vitre";
+                return itemname;
+            case 10:
+                itemname = "Baton de berger";
+                return itemname;
+            case 11:
+                itemname = "Cape en béton";
                 return itemname;
             default:
                 return itemname;

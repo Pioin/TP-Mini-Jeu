@@ -2,7 +2,7 @@ public class Characters{
 
     private int health;
     private boolean isAlive = true;
-
+    protected int lastDice;
 
     public boolean getIsAlive() // Getter retournant le booléen isAlive notifiant si un personnage est mort ou vivant
     {
@@ -20,15 +20,24 @@ public class Characters{
     {
         this.health = health;
     }
-    public void attack(Characters target, int attackValue) // Méthode permettant a un personnage d'en attaquer un autre
+    public int getLastDice()
     {
-        if((target.health - attackValue) < 0)
+        return this.lastDice;
+    }
+    public void damage(int attackValue)
+    {
+        if((this.health - attackValue) < 0)
         {
-            target.health = 0;
+            this.health = 0;
         }
         else
         {
-            target.health = target.health - attackValue;
+            this.health = this.health - attackValue;
         }
+    }
+    public void attack(Characters receiver) // Méthode permettant a un personnage d'en attaquer un autre
+    {
+        int attackValue = this.getLastDice() - receiver.getLastDice();
+        receiver.damage(attackValue);
     }
 }

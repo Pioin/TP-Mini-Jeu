@@ -5,7 +5,8 @@ public class Players extends Characters {
     private String name;
     private int monstersSlain;     
     private List<String> myInventory = new ArrayList<String>();
-    Dices myPlayerDice = new Dices(6);
+    private Dices myPlayerDice = new Dices(6);
+    private Items myItems = new Items();
 
     public Players()
     {
@@ -26,6 +27,11 @@ public class Players extends Characters {
     public String getGender() // Getter de la variable Gender
     {
         return gender;
+    }
+    public int throwPlayerDice() // Méthode permettant de jeter un dé
+    {
+        lastDice = this.myPlayerDice.throwDice();
+        return lastDice;
     }
     public void slayAMonster() // Méthode permettant de compter le nombre de monstres tués
     {
@@ -48,7 +54,7 @@ public class Players extends Characters {
     }
     public void addItem() // Méthode permettant de générer puis d'ajouter un objet a un personnage
     {
-        String itemDrop = Items.generateItemName();
+        String itemDrop = myItems.generateItemName();
         System.out.println("Le monstre laisse tomber quelque chose !");
         System.out.println("Une étiquette est fort heureusement collée sur l'objet : \" " + itemDrop +" \" !");
         System.out.println("Vous mettez ce bijoux dans votre sac a objets.");

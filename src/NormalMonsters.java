@@ -9,6 +9,7 @@ public class NormalMonsters extends Characters
 
     public int throwNormalMonsterDice() // Méthode permettant de jeter un dé
     {
-        return this.myNormalMonsterDice.throwDice();
+        lastDice = this.myNormalMonsterDice.throwDice();
+        return lastDice;
     }
 }

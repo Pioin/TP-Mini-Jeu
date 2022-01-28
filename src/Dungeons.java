@@ -44,14 +44,14 @@ public class Dungeons {
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("Vous tentez d'attaquer le monstre");
                     System.out.println("Lancer des dés : ");
-                    int adventurerThrow = adventurer.myPlayerDice.throwDice();
+                    int adventurerThrow = adventurer.throwPlayerDice();
                     System.out.println("L'aventurier lance un : " + adventurerThrow + " !");
                     int normalMonsterThrow = myNormalMonster.throwNormalMonsterDice();
                     System.out.println("Le monstre lance un : " + normalMonsterThrow + " !");
                     if(adventurerThrow >= normalMonsterThrow)
                     {
                         System.out.println("Vous frappez le monstre il subit " + (adventurerThrow - normalMonsterThrow) + " dégats !");
-                        adventurer.attack(myNormalMonster, adventurerThrow - normalMonsterThrow);
+                        adventurer.attack(myNormalMonster);
                     }
                     else
                     {
@@ -62,14 +62,13 @@ public class Dungeons {
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         System.out.println("Le monstre tente de vous attaquer");
                         System.out.println("Lancer des dés : ");
-                        adventurerThrow = adventurer.myPlayerDice.throwDice();
+                        adventurerThrow = adventurer.throwPlayerDice();
                         System.out.println("L'aventurier lance un : " + adventurerThrow + " !");
                         normalMonsterThrow = myNormalMonster.throwNormalMonsterDice();
                         System.out.println("Le monstre lance un : " + normalMonsterThrow + " !");
                         if(normalMonsterThrow > adventurerThrow)
                         {
-                            
-                            if(adventurer.myPlayerDice.throwDice() <= 2)
+                            if(adventurer.throwPlayerDice() <= 2)
                             {
                                 System.out.println("Malheureusement votre lancer n'est pas assez bon !");
                                 System.out.println(adventurer.getName() + " tente d'utiliser son bouclier !");
@@ -83,7 +82,7 @@ public class Dungeons {
                                 System.out.println("C'est un échec !");
                                 System.out.println("Le monstre vous attaque");
                                 System.out.println("Le monstre vous frappe, vous subissez " + (normalMonsterThrow - adventurerThrow) + " dégats !");
-                                myNormalMonster.attack(adventurer, normalMonsterThrow - adventurerThrow);
+                                myNormalMonster.attack(adventurer);
                             }
                             System.out.println("Vous possédez maintenant " + adventurer.getHealth() + " points de vie.");
                         }
@@ -124,14 +123,14 @@ public class Dungeons {
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("Vous tentez d'attaquer le monstre gigantesque");
                     System.out.println("Lancer des dés : ");
-                    int adventurerThrow = adventurer.myPlayerDice.throwDice();
-                    System.out.println("L'aventurier lance un : " + adventurerThrow + " !");
-                    int eliteMonsterThrow = myEliteMonster.throwEliteMonsterDice();
-                    System.out.println("Le monstre gigantesque lance un : " + eliteMonsterThrow + " !");
-                    if(adventurerThrow >= eliteMonsterThrow)
+                    adventurer.throwPlayerDice();
+                    System.out.println("L'aventurier lance un : " + adventurer.getLastDice() + " !");
+                    myEliteMonster.throwEliteMonsterDice();
+                    System.out.println("Le monstre gigantesque lance un : " + myEliteMonster.getLastDice() + " !");
+                    if(adventurer.getLastDice() >= myEliteMonster.getLastDice())
                     {
-                        System.out.println("Vous frappez le monstre gigantesque il subit " + (adventurerThrow - eliteMonsterThrow) + " dégats !");
-                        adventurer.attack(myEliteMonster, adventurerThrow - eliteMonsterThrow);
+                        System.out.println("Vous frappez le monstre gigantesque il subit " + (adventurer.getLastDice() - myEliteMonster.getLastDice()) + " dégats !");
+                        adventurer.attack(myEliteMonster);
                         System.out.println("Le monstre gigantesque possède maintenant " + myEliteMonster.getHealth() + " points de vie.");
                     }
                     else
@@ -143,14 +142,14 @@ public class Dungeons {
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         System.out.println("Le monstre  gigantesque tente de vous attaquer");
                         System.out.println("Lancer des dés : ");
-                        adventurerThrow = adventurer.myPlayerDice.throwDice();
-                        System.out.println("L'aventurier lance un : " + adventurerThrow + " !");
-                        eliteMonsterThrow = myEliteMonster.throwEliteMonsterDice();
-                        System.out.println("Le monstre gigantesque lance un : " + eliteMonsterThrow + " !");
-                        int magicAttack = myEliteMonster.throwMagicSpellDicee();
-                        if(eliteMonsterThrow > adventurerThrow)
+                        adventurer.throwPlayerDice();
+                        System.out.println("L'aventurier lance un : " + adventurer.getLastDice() + " !");
+                        myEliteMonster.throwEliteMonsterDice();
+                        System.out.println("Le monstre gigantesque lance un : " + myEliteMonster.getLastDice() + " !");
+                        myEliteMonster.throwMagicSpellDice();
+                        if(myEliteMonster.getLastDice() > adventurer.getLastDice())
                         {
-                            if(adventurer.myPlayerDice.throwDice() <= 2)
+                            if(adventurer.throwPlayerDice() <= 2)
                             {
                                 System.out.println("Malheureusement votre lancer n'est pas assez bon !");
                                 System.out.println(adventurer.getName() + " tente d'utiliser son bouclier !");
@@ -162,9 +161,8 @@ public class Dungeons {
                                 System.out.println("Malheureusement votre lancer n'est pas assez bon !");
                                 System.out.println(adventurer.getName() + " tente d'utiliser son bouclier !");
                                 System.out.println("C'est un échec !");
-                                System.out.println("Le monstre gigantesque vous attaque");
-                                System.out.println("Le monstre gigantesque vous frappe, vous subissez " + (eliteMonsterThrow - adventurerThrow) + " dégats !");
-                                myEliteMonster.attack(adventurer, eliteMonsterThrow - adventurerThrow);
+                                System.out.println("Le monstre gigantesque vous frappe, vous subissez " + (myEliteMonster.getLastDice() - adventurer.getLastDice()) + " dégats !");
+                                myEliteMonster.attack(adventurer);
                             }
                             System.out.println("Vous possédez maintenant " + adventurer.getHealth() + " points de vie.");
                         }
@@ -174,11 +172,11 @@ public class Dungeons {
                         }
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         System.out.println("Le monstre gigantesque prépare une attaque magique !");
-                        System.out.println("Le monstre gigantesque lance un : " + magicAttack + " !");
-                        if(magicAttack < 6 && adventurer.getIsAlive() == true)
+                        System.out.println("Le monstre gigantesque lance un : " + myEliteMonster.getLastMagicDice() + " !");
+                        if(myEliteMonster.getLastMagicDice() < 6 && adventurer.getIsAlive() == true)
                         {
                             System.out.println("Le sort semble être une réussite, préparez vous a l'impact !");
-                            if(adventurer.myPlayerDice.throwDice() <= 2)
+                            if(adventurer.throwPlayerDice() <= 2)
                             {
                                 System.out.println(adventurer.getName() + " tente d'utiliser son bouclier pour se défendre du sort !");
                                 System.out.println("C'est une réussite !");
@@ -189,7 +187,7 @@ public class Dungeons {
                                 System.out.println(adventurer.getName() + " tente d'utiliser son bouclier pour se défendre du sort !");
                                 System.out.println("C'est un échec !");
                                 System.out.println("Le sort fonce sur vous !");
-                                myEliteMonster.attack(adventurer, (magicAttack * 5));
+                                myEliteMonster.magicAttack(adventurer);
                                 System.out.println("Quelle déflagration !");
                                 System.out.println("Vous possédez maintenant " + adventurer.getHealth() + " points de vie.");
                             }
@@ -198,7 +196,6 @@ public class Dungeons {
                         {
                             System.out.println("Le sort est un échec !");
                         }
-
                         if(adventurer.getHealth() == 0)
                         {
                             adventurer.setIsAlive(false);
